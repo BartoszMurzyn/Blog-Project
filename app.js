@@ -15,18 +15,21 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-const posts = [];
+let posts = [];
 
 app.get("/", function(req, res) {
-  res.render("home", {titleText: "Home", StartingContent:homeStartingContent});
+  res.render("home", {
+    StartingContent:homeStartingContent,
+    posts: posts
+  });
 });
 
 app.get("/about", function (req, res) {
-  res.render("about", {titleText: "About", StartingContent:aboutContent})
+  res.render("about", {StartingContent:aboutContent})
 });
 
 app.get("/contact", function (req, res) {
-  res.render("contact", {titleText: "Contact", StartingContent:contactContent})
+  res.render("contact", {StartingContent:contactContent})
 });
 
 app.get("/compose", function (req, res) {
@@ -34,14 +37,13 @@ app.get("/compose", function (req, res) {
 });
 
 app.post("/compose", function (req, res) {
-  let title = req.body.publishInputTitle
+  let title = req.body.publishInputTitle;
   let post = req.body.textArea;
   let newItem = {
     title: title,
     post: post,
   };
   posts.push(newItem);
-  console.log(posts);
   res.redirect("/");
 });
 
