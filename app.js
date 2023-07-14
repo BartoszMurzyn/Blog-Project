@@ -24,6 +24,10 @@ app.get("/", function(req, res) {
   });
 });
 
+app.get("/posts/:topic", function (req, res) {
+  console.log(req.params.topic);
+})
+
 app.get("/about", function (req, res) {
   res.render("about", {StartingContent:aboutContent})
 });
