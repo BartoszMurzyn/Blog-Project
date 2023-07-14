@@ -15,6 +15,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+const posts = [];
 
 app.get("/", function(req, res) {
   res.render("home", {titleText: "Home", StartingContent:homeStartingContent});
@@ -33,15 +34,15 @@ app.get("/compose", function (req, res) {
 });
 
 app.post("/compose", function (req, res) {
-  console.log(req.body.publishInputTitle);
   let title = req.body.publishInputTitle
-  console.log(req.body.textArea);
   let post = req.body.textArea;
   let newItem = {
     title: title,
     post: post,
   };
-  console.log(newItem);
+  posts.push(newItem);
+  console.log(posts);
+  res.redirect("/");
 });
 
 
